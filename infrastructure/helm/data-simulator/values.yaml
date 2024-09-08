@@ -17,8 +17,4 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-env:
-  - name: DATABASE_URL
-    value: "postgres://mvijdael:tqvh23hSLN51l9UzzOOAoroI9-UZj5c4@raja.db.elephantsql.com/mvijdael"
-  - name: RABBITMQ_URL
-    value: "amqps://lkwedodk:FKQnL0M20m33KsOwflMGZf0uVqza1c06@beaver.rmq.cloudamqp.com/lkwedodk"
+envFromSecret: llm-benchmark-secret
