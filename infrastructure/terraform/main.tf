@@ -36,12 +36,12 @@ variable "tenant_id" {
 }
 
 resource "azurerm_resource_group" "aks_rg" {
-  name     = "llm-benchmark-rg-new-new"
+  name     = "llm-benchmark-rg-new-old"
   location = "East US"
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "llm-benchmark-aks-new-new"
+  name                = "llm-benchmark-aks-new-old"
   location            = azurerm_resource_group.aks_rg.location
   resource_group_name = azurerm_resource_group.aks_rg.name
   dns_prefix          = "llm-benchmark"
