@@ -20,8 +20,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          envFrom:
-            - secretRef:
-                name: {{ .Values.envFromSecret }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

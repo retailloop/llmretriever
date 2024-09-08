@@ -7,28 +7,12 @@ provider "helm" {
   }
 }
 
-resource "kubernetes_secret" "llm_benchmark_secret" {
-    metadata {
-      name = "llm-benchmark-secret"
-   }
-
-   data = {
-    DATABASE_URL = file("${path.module}/../../.env")
-    RABBITMQ_URL = file("${path.module}/../../.env")
-    REDIS_URL    = base64encode(file("${path.module}/../../.env"))
-    API_PORT     = base64encode(file("${path.module}/../../.env"))
-  }
-
-  type = "Opaque"
-
-  depends_on = [azurerm_kubernetes_cluster.aks]
-}
 
 resource "helm_release" "data_simulator" {
   name       = "data-simulator"
   chart      = "../helm/data-simulator"
   namespace  = "default"
-  depends_on = [azurerm_kubernetes_cluster.aks, kubernetes_secret.llm_benchmark_secret]
+  depends_on = [azurerm_kubernetes_cluster.aks]
 
   set {
     name  = "image.repository"
@@ -40,10 +24,6 @@ resource "helm_release" "data_simulator" {
     value = "latest"
   }
 
-  set {
-    name = "envFromSecret"
-    value = kubernetes_secret.llm_benchmark_secret.metadata[0].name
-  }
 }
 
 resource "helm_release" "data_retriever" {
@@ -62,8 +42,4 @@ resource "helm_release" "data_retriever" {
     value = "latest"
   }
 
-  set {
-    name  = "envFromSecret"
-    value = kubernetes_secret.llm_benchmark_secret.metadata[0].name
-  }
 }
