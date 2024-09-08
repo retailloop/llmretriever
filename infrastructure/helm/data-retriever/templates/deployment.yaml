@@ -19,8 +19,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.port }}
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
           env:
-            {{- toYaml .Values.env | nindent 12 }}
+            { { - toYaml .Values.env | nindent 12 } }
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
