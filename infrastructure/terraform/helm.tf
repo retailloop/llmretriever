@@ -30,7 +30,7 @@ resource "helm_release" "data_retriever" {
   name       = "data-retriever"
   chart      = "../helm/data-retriever"
   namespace  = "default"
-  depends_on = [azurerm_kubernetes_cluster.aks, kubernetes_secret.llm_benchmark_secret]
+  depends_on = [azurerm_kubernetes_cluster.aks]
 
   set {
     name  = "image.repository"
