@@ -1,4 +1,0 @@
-export TF_VAR_subscription_id=160d2d8f-4263-4b37-a3b7-3b1487ddb32d
-export TF_VAR_client_id=d1d52802-0dd2-4c52-b446-faef44993336
-export TF_VAR_client_secret=rEc8Q~skZoDQmDDg0YoQw-aSDJvLybHbTTRBQde1
-export TF_VAR_tenant_id=05391dde-064e-46f3-bcf8-dbdc28aaaeaa
