@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: llmretriever.azurecr.io/data-retriever
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+env:
+  - name: DATABASE_URL
+    value: "postgres://mvijdael:tqvh23hSLN51l9UzzOOAoroI9-UZj5c4@raja.db.elephantsql.com/mvijdael"
+  - name: REDIS_URL
+    value: "rediss://red-creps9ggph6c73eugjs0:8JzxmOh6iDJ47sPjGM78r7tOVdizAHw1@oregon-redis.render.com:6379"
+  - name: API_PORT
+    value: "8000"

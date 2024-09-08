@@ -1,26 +1,18 @@
 from typing import List
-from models import Ranking
-
+from .models import Ranking
+from ports.repositories import BenchmarkRepository
+from ports.caching import CachePort
 
 class Retriever:
-    def __init__(self, repository, cache):
+    def __init__(self, repository: BenchmarkRepository, cache: CachePort):
         self.repository = repository
         self.cache = cache
 
-    async def get_ranking(self, metric: str) -> List[Ranking]:
-        cache_key = f"ranking:{metric}"
-        cached_ranking = await self.cache.get(cache_key)
+    def get_ranking(self, metric: str) -> List[Ranking]:
+        return self.repository.get_ranking(metric)
 
-        if cached_ranking:
-            return cached_ranking
+    def get_available_metrics(self) -> List[str]:
+        return self.repository.get_available_metrics()
 
-        ranking = await self.repository.get_ranking(metric)
-        await self.cache.set(cache_key, ranking)
-
-        return ranking
-
-    async def get_available_metrics(self) -> List[str]:
-        return await self.repository.get_available_metrics()
-
-    async def get_available_models(self) -> List[str]:
-        return await self.repository.get_available_models()
+    def get_available_models(self) -> List[str]:
+        return self.repository.get_available_models()
