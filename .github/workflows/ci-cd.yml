@@ -55,6 +55,9 @@ jobs:
       run: |
         cd infrastructure/terraform
         terraform init
+    - name: Get AKS Credentials
+      run: |
+         az aks get-credentials --resource-group llm-benchmark-rg --name llm-benchmark-aks
 
     - name: Terraform Apply
       run: |

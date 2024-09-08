@@ -20,6 +20,8 @@ resource "kubernetes_secret" "llm_benchmark_secret" {
   }
 
   type = "Opaque"
+
+  depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
 resource "helm_release" "data_simulator" {
