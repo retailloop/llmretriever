@@ -24,7 +24,7 @@ services:
       - "15672:15672"
 
   data_simulator:
-    build: ./data_simulator
+    build: data_simulator_temp
     depends_on:
       - db
       - rabbitmq
