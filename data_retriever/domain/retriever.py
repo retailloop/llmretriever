@@ -1,5 +1,6 @@
 from typing import List
-from .models import Ranking
+from models import Ranking
+
 
 class Retriever:
     def __init__(self, repository, cache):
@@ -17,7 +18,6 @@ class Retriever:
         await self.cache.set(cache_key, ranking)
 
         return ranking
-
 
     async def get_available_metrics(self) -> List[str]:
         return await self.repository.get_available_metrics()
