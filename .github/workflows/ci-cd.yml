@@ -55,6 +55,10 @@ jobs:
       run: |
         cd infrastructure/terraform
         terraform init
+    - name: Terraform Import
+      run: |
+        cd infrastructure/terraform
+        terraform import azurerm_resource_group.aks_rg /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/llm-benchmark-rg
     - name: Get AKS Credentials
       run: |
          az aks get-credentials --resource-group llm-benchmark-rg --name llm-benchmark-aks
