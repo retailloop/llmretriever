@@ -184,7 +184,7 @@ To set up the project for local development:
 
 2. Set up virtual environments for both microservices:
    ```bash
-   cd data_simulator_temp
+   cd data_simulator
    python -m venv venv
    source venv/bin/activate
    pip install -r requirements.txt
@@ -206,7 +206,7 @@ To set up the project for local development:
 
 6. To run tests:
    ```bash
-   cd data_simulator_temp
+   cd data_simulator
    pytest
    cd ../data_retriever
    pytest

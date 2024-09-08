@@ -24,12 +24,12 @@ services:
       - "15672:15672"
 
   data_simulator:
-    build: data_simulator_temp
+    build: ./data_simulator
     depends_on:
       - db
       - rabbitmq
     env_file:
-      - .env
+      - .env.example
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - RABBITMQ_URL=${RABBITMQ_URL}
@@ -42,7 +42,7 @@ services:
     ports:
       - "${API_PORT}:8000"
     env_file:
-      - .env
+      - .env.example
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=${REDIS_URL}
