@@ -9,7 +9,7 @@ provider "helm" {
 
 resource "kubernetes_secret" "llm_benchmark_secret" {
     metadata {
-      name = "llm_benchmark_secret"
+      name = "llm-benchmark-secret"
    }
 
    data = {
