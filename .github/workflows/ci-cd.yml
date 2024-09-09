@@ -66,6 +66,15 @@ jobs:
         TF_VAR_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         TF_VAR_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
 
+    - name: Set AKS Context
+      run: |
+        az aks get-credentials --resource-group llm-benchmark-rg --name llm-benchmark-aks --overwrite-existing
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v3
+      with:
+         version: 'latest'
+
 
     - name: Debug Helm
       if: failure()
