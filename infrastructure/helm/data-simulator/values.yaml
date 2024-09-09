@@ -1,7 +1,10 @@
 replicaCount: 1
 
+imagePullSecrets:
+ - name: acr-secret
+
 image:
-  repository: llmretriever.azurecr.io/data-simulator
+  repository: llmretriever.azurecr.io/data-simulator:latest
   tag: latest
   pullPolicy: IfNotPresent
 
