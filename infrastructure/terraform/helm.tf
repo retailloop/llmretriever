@@ -1,9 +1,9 @@
 provider "helm" {
-   kubernetes {
-    host                   = local.aks_cluster.kube_config.0.host
-    client_certificate     = base64decode(local.aks_cluster.kube_config.0.client_certificate)
-    client_key             = base64decode(local.aks_cluster.kube_config.0.client_key)
-    cluster_ca_certificate = base64decode(local.aks_cluster.kube_config.0.cluster_ca_certificate)
+  kubernetes {
+    host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
+    client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
   }
 }
 
@@ -12,7 +12,7 @@ resource "helm_release" "data_simulator" {
   name       = "data-simulator"
   chart      = "../helm/data-simulator"
   namespace  = "default"
-  depends_on = [local.aks_cluster]
+  depends_on = [azurerm_kubernetes_cluster.aks]
 
   set {
     name  = "image.repository"
@@ -30,7 +30,7 @@ resource "helm_release" "data_retriever" {
   name       = "data-retriever"
   chart      = "../helm/data-retriever"
   namespace  = "default"
-  depends_on = [local.aks_cluster]
+  depends_on = [azurerm_kubernetes_cluster.aks]
 
   set {
     name  = "image.repository"
