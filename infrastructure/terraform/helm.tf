@@ -14,6 +14,8 @@ resource "helm_release" "data_simulator" {
   namespace  = "default"
   depends_on = [azurerm_kubernetes_cluster.aks]
 
+  timeout = 600
+
   set {
     name  = "image.repository"
     value = "llmretriever.azurecr.io/data-simulator"
@@ -31,6 +33,8 @@ resource "helm_release" "data_retriever" {
   chart      = "../helm/data-retriever"
   namespace  = "default"
   depends_on = [azurerm_kubernetes_cluster.aks]
+
+  timeout = 600
 
   set {
     name  = "image.repository"

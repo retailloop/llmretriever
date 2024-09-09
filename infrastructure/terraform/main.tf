@@ -36,19 +36,19 @@ variable "tenant_id" {
 }
 
 resource "azurerm_resource_group" "aks_rg" {
-  name     = "llm-benchmark-rg-new-sola"
+  name     = "llm-benchmark-rg-new-sola2"
   location = "East US"
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "llm-benchmark-aks-new-sola"
+  name                = "llm-benchmark-aks-new-sola2"
   location            = azurerm_resource_group.aks_rg.location
   resource_group_name = azurerm_resource_group.aks_rg.name
   dns_prefix          = "llm-benchmark"
 
   default_node_pool {
     name       = "default"
-    node_count = 2
+    node_count = 3
     vm_size    = "Standard_D2_v2"
   }
 

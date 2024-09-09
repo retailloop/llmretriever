@@ -66,6 +66,14 @@ jobs:
         TF_VAR_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         TF_VAR_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
 
+
+    - name: Debug Helm
+      if: failure()
+      run: |
+        helm list -A
+        helm history data-simulator
+        helm history data-retriever
+
     - name: Get Data Retriever IP
       run: |
         cd infrastructure/terraform
