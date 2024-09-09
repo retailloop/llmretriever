@@ -9,31 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
-}
-
-variable "subscription_id" {
-  description = "The Azure subscription ID"
-  type        = string
-}
-
-variable "client_id" {
-  description = "The Azure client ID"
-  type        = string
-}
-
-variable "client_secret" {
-  description = "The Azure client secret"
-  type        = string
-  sensitive   = true
-}
-
-variable "tenant_id" {
-  description = "The Azure tenant ID"
-  type        = string
+  use_cli = true
 }
 
 data "azurerm_resource_group" "aks_rg" {
