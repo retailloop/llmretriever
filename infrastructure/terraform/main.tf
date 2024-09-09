@@ -14,6 +14,38 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
 }
 
+data "azurerm_container_registry" "acr" {
+  name                = "llmretriever"
+  resource_group_name = "Asoro-Automative"  # Replace with your ACR's resource group name
+}
+
+resource "azurerm_role_assignment" "aks_acr" {
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = data.azurerm_container_registry.acr.id
+  skip_service_principal_aad_check = true
+}
+
+resource "kubernetes_secret" "docker_cfg" {
+  metadata {
+    name = "docker-cfg"
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        "${data.azurerm_container_registry.acr.login_server}" = {
+          auth = base64encode("${data.azurerm_container_registry.acr.admin_username}:${data.azurerm_container_registry.acr.admin_password}")
+        }
+      }
+    })
+  }
+
+  depends_on = [azurerm_kubernetes_cluster.aks]
+}
+
 variable "subscription_id" {
   description = "The Azure subscription ID"
   type        = string
@@ -36,12 +68,12 @@ variable "tenant_id" {
 }
 
 resource "azurerm_resource_group" "aks_rg" {
-  name     = "llm-benchmark-rg-lanrey2"
+  name     = "llm-benchmark-rg-lanrey3"
   location = "East US"
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "llm-benchmark-aks-lanrey2"
+  name                = "llm-benchmark-aks-lanrey3"
   location            = azurerm_resource_group.aks_rg.location
   resource_group_name = azurerm_resource_group.aks_rg.name
   dns_prefix          = "llm-benchmark"

@@ -1,5 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
+imagePullSecrets:
+  - name: docker-cfg
 metadata:
   name: {{ include "data-simulator.fullname" . }}
   labels:
