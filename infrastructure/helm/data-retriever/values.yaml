@@ -23,4 +23,4 @@ env:
   - name: REDIS_URL
     value: "rediss://red-creps9ggph6c73eugjs0:8JzxmOh6iDJ47sPjGM78r7tOVdizAHw1@oregon-redis.render.com:6379"
   - name: API_PORT
-    value: "8000"
+    value: "8080"
