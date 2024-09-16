@@ -182,7 +182,7 @@ To set up the project for local development:
    - Helm
    - Terraform
 
-2. Set up virtual environments for both microservices:
+2. Set up virtual environments for both microservices: (This is optional)
    ```bash
    cd data_simulator
    python -m venv venv
